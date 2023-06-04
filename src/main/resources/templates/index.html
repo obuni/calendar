@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500&display=swap" rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+  
+    <link href='fullcalendar/packages/core/main.css' rel='stylesheet' />
+    <link href='fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
+    
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    
+    <!-- Style -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- datepicker -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style>
+<!--datepicer 버튼 롤오버 시 손가락 모양 표시-->
+.ui-datepicker-trigger{cursor: pointer;}
+
+<!--datepicer input 롤오버 시 손가락 모양 표시-->
+
+.hasDatepicker{cursor: pointer;}
+
+</style>
+    
+
+
+    <title>Calendar #10</title>
+    
+  </head>
+  <body>
+  
+       <script>
+
+        $(function() {
+
+            //input을 datepicker로 선언
+
+            $("#datepicker").datepicker({
+
+                dateFormat: 'yy-mm-dd' //Input Display Format 변경
+
+                ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+
+                ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
+
+                ,changeYear: true //콤보박스에서 년 선택 가능
+
+                ,changeMonth: true //콤보박스에서 월 선택 가능                
+
+                ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+
+                ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+
+                ,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
+
+                ,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
+
+                ,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
+
+                ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
+
+                ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+
+                ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
+
+                ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+
+                ,minDate: "-1M" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+
+                ,maxDate: "+1M" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)                
+
+            });                    
+
+            
+
+            //초기값을 오늘 날짜로 설정
+
+            $('#datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)            
+
+        });
+
+    </script>
+
+  
+
+<div class="modal" id="addModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">일정추가</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <p>날짜
+      <input type="date" id="datepicker">
+      </p>
+        <p>일정 
+        <input type="text" class="form-control" id="calendartitle" placeholder="제목을 입력하시오." name="calendartitle" required>
+         </p>
+        <p>상세 메모  
+        <input type="text" class="form-control" id="calendarmemo" placeholder="상세 메모을 입력하시오." name="calendarmemo" required>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success" id="save">저장</button>
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="eventclickModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">일정보기</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <p>날짜
+      <input type="date" id="datepicker">
+      </p>
+        <p>일정 
+        <input type="text" class="form-control" id="calendartitleMd" placeholder="제목을 입력하시오." name="calendartitleMd" required>
+         </p>
+        <p>상세 메모  
+        <input type="text" class="form-control" id="calendarmemoMd" placeholder="상세 메모을 입력하시오." name="calendarmemoMd" required>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-success" id="modify">수정</button>
+        <button type="button" class="btn btn-outline-success" id="delete">삭제</button>
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <div id='calendar-container'>
+    <div id='calendar'></div>
+  </div>
+    
+    
+
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <script src='fullcalendar/packages/core/main.js'></script>
+    <script src='fullcalendar/packages/interaction/main.js'></script>
+    <script src='fullcalendar/packages/daygrid/main.js'></script>
+    <script src='fullcalendar/packages/timegrid/main.js'></script>
+    <script src='fullcalendar/packages/list/main.js'></script>
+
+
+    <script>
+    
+    var title ;
+    var startday;
+    var endday;
+    
+      document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      plugins: [ 'interaction', 'dayGrid', 'timeGrid', 'list' ],
+      height: 'parent',
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      },
+      dateClick: function() {
+  	    //alert('a day has been clicked!');
+  	  },
+  	  
+      defaultView: 'dayGridMonth',
+      //defaultDate: '2020-02-12',
+      ///////////////////////////////
+      
+      ////////////////////
+      navLinks: false, // can click day/week names to navigate views
+      editable: true,
+      eventLimit: true, // allow "more" link when too many events
+      events: [
+    	  
+    	  {
+          	title:'hi',
+          	start:'2023-05-22',
+          	end:'2023-05-22',
+          	textColor: '#000000',
+           },
+       
+      ],
+      
+      eventColor: '#e2928d',
+	  eventClick: function(){
+  		  
+  	  },
+  	  
+      
+    });
+    
+    calendar.on('dateClick', function(info) {
+    	$("#addModal").modal('show');
+    	  //console.log('clicked on ' + info.dateStr);
+    	  
+    	});
+    
+    calendar.on('eventClick', function(info) {
+    	$("#eventclickModal").modal('show');
+    	  //console.log('clicked on ' + info.dateStr);
+    	});
+    
+    
+
+
+    calendar.render();
+  });
+
+    </script>
+
+    <script src="js/main.js"></script>
+    
+  </body>
+</html>
