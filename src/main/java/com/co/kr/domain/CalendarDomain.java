@@ -9,10 +9,10 @@ import lombok.Setter;
 @Builder(builderMethodName="builder")
 public class CalendarDomain {
 	
-	private String mbcalendarNo;
-	private String mbcalendarTitle;
-	private String mbcalendarMemo;
-	private String mbcalendarStart;
-	private String mbcalendarEnd;
+	private String calendarNo;
+	private String calendarTitle;
+	private String calendarMemo;
+	private String calendarStart;
+	private String calendarEnd;
 
 }

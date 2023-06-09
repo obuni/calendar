@@ -25,39 +25,29 @@ import com.co.kr.vo.CalendarVo;
 @RequestMapping("/")
 public class HomeController {
 	
-	@Autowired(required=true)
 	CalendarService calendarService;
+	
+//	@GetMapping("/index")
+//	  public List<CalendarVo> calendarList(Map<String, String> map) {
+//
+//	    return CalendarService.calendarList(map);
+//	  }
 
-	//일정보기
+//	일정보기
 			@RequestMapping(value = "index", method = RequestMethod.GET)
 			public ModelAndView getCalendarList(CalendarVo calendarDTO, ModelAndView mv, HttpServletRequest request) {
 				
 				
 				
-				
-				List<CalendarVo> calendar = CalendarService.calendarList();
-//				try {
-//					calendar = calendarService.getCalendar();
-//					request.setAttribute("calendarList", calendar);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
+				List<CalendarVo> calendar = CalendarService.calendarList(null);
 				
 				Map<String, String> map = new HashMap();
-				map.put("mbcalendarNo", calendarDTO.getcalendarNo());
-				map.put("mbcalendarTitle", calendarDTO.getcalendarTitle());
+				map.put("calendarNo", calendarDTO.getcalendarNo());
+				map.put("calendarTitle", calendarDTO.getcalendarTitle());
 				
 				mv.setViewName("templates/index.html");
-				mv.addObject("list", calendar);
+				mv.addObject("calendar", calendar);
 				return mv;
 			}
 	
-//	@RequestMapping(value = "/index")
-//	public ModelAndView index() throws Exception{
-//	    ModelAndView mav = new ModelAndView("test");
-//
-//	    List<CalendarVo> testList = CalendarService.calendarList();
-//	    mav.addObject("list", testList);
-//
-//	    return mav;
 }
